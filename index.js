@@ -1,7 +1,7 @@
 const async_parallel = require('async/parallel');
 const async_series = require('async/series');
 
-const Transactions = (queries, { series }) => new Promise((resolve, reject) => {
+module.exports = (queries, { series }) => new Promise((resolve, reject) => {
   let async_exc;
   if (series) {
     async_exc = async_series;

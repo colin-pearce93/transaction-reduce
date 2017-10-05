@@ -1,6 +1,6 @@
 {
-  "name": "transactions",
-  "version": "1.0.0",
+  "name": "transaction-reduce",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
