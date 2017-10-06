@@ -2,7 +2,8 @@ const async_parallel = require('async/parallel');
 const async_series = require('async/series');
 
 module.exports = (queries, { series }) => new Promise((resolve, reject) => {
-  (series ? async_series : async_parallel)(Object.keys(queries).map(queryName => {
+  const async_exec = series ? async_series : async_parallel;
+  async_exec(Object.keys(queries).map(queryName => {
     return (callback) => {
       let tryfunc;
       if (typeof queries[queryName].try === 'undefined') {
@@ -31,7 +32,7 @@ module.exports = (queries, { series }) => new Promise((resolve, reject) => {
         return accum
       }, {});
       if (Object.keys(successfulTransactions).length < Object.keys(queries).length) {
-        async_parallel(Object.keys(successfulTransactions).map(queryName => {
+        async_exec(Object.keys(successfulTransactions).map(queryName => {
           return (callback) => {
             if (typeof queries[queryName].undo === 'undefined') {
               callback(null)
